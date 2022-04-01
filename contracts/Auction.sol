@@ -24,11 +24,11 @@ contract Auction {
 
  // Modifiers
  modifier isOngoing() {
-   require(block.timestamp < endTime, 'This auction is closed.');
+   require(block.timestamp < endTime, 'This auction is still open.');
    _;
  }
  modifier notOngoing() {
-   require(block.timestamp >= endTime, 'This auction is still open.');
+   require(block.timestamp >= endTime, 'This auction is closed.');
    _;
  }
  modifier isOwner() {
@@ -45,10 +45,10 @@ contract Auction {
  constructor () {
    owner = msg.sender;
    startTime = block.timestamp;
-   endTime = block.timestamp + 1 hours;
+   endTime = block.timestamp + 40 seconds;
    newHouse.houseColor = '#FFFFFF';
-   newHouse.houseLocation = 'Lagos, Nigeria';
-   newHouse.houseType = 'Duplex';
+   newHouse.houseLocation = 'Sask, SK';
+   newHouse.houseType = 'TownHouse';
  }
 
  function makeBid() public payable isOngoing() notOwner() returns (bool) {
